@@ -18,7 +18,7 @@ Puede instalar las bibliotecas necesarias usando pip:
 
 ```bash
 
-### Ejecución del Programa
+## Ejecución del Programa
 
 Para ejecutar el programa, utilice el siguiente formato de comando en su terminal:
 
