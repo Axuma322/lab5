@@ -8,7 +8,7 @@ El programa permite al usuario abrir y mostrar imágenes utilizando PIL o OpenCV
 
 ## Instalación
 
-Antes de ejecutar el programa, hay de tener instaladas las siguientes dependencias:
+Antes de ejecutar el programa, hay que tener instaladas las siguientes dependencias:
 
 - Python 3.x
 - PIL (Pillow)
@@ -17,9 +17,8 @@ Antes de ejecutar el programa, hay de tener instaladas las siguientes dependenci
 Puede instalar las bibliotecas necesarias usando pip:
 
 ```bash
+pip install Pillow
+pip install opencv-python
 
-## Ejecución del Programa
-
-Para ejecutar el programa, utilice el siguiente formato de comando en su terminal:
-
+## Para ejecutar el programa, utilice el siguiente formato de comando en su terminal:
 python3 lab5.py --biblioteca [PIL/OpenCV] --imagen [ruta/a/la/imagen]
