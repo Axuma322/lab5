@@ -1,1 +1,50 @@
-vbvbdfghbcfb
+import argparse #es una biblioteca estándar en Python utilizada para manejar argumentos de la línea de comandos.
+
+# Clase base para el procesamiento de imágenes, es es una clase base abstracta. Define un método mostrar_imagen, pero no lo implementa, sirve para las subclases que lo heredarán"
+class ImageProcessor:
+    def mostrar_imagen(self, path):
+        raise NotImplementedError("Este método debe ser implementado por subclases.")
+#Estas dos subclases heredan de ImageProcessor y proporcionan implementaciones específicas del método mostrar_imagen para las bibliotecas PIL y OpenCV, respectivamente.
+# Procesador utilizando PIL
+class PILProcessor(ImageProcessor):
+    def mostrar_imagen(self, path):
+        from PIL import Image
+        image = Image.open(path)
+        image.show()
+
+# Procesador utilizando OpenCV
+class OpenCVProcessor(ImageProcessor):
+    def mostrar_imagen(self, path):
+        import cv2
+        img = cv2.imread(path)
+        cv2.imshow('Imagen', img)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
+# Función para analizar los argumentos de la línea de comandos, Define dos argumentos requeridos: --biblioteca (para elegir entre PIL o OpenCV) y --imagen (la ruta a la imagen a procesar).
+def parse_args():
+    parser = argparse.ArgumentParser(description="Procesamiento de Imagenes")
+    parser.add_argument("--biblioteca", choices=["PIL", "OpenCV"], required=True, help="Biblioteca para procesamiento de imagenes")
+    parser.add_argument("--imagen", required=True, help="Ruta de la imagen a procesar")
+    return parser.parse_args()
+
+# Función principal, Esta función es el punto de entrada del programa. Aquí, se parsean los argumentos de la línea de comandos, se elige el procesador de imágenes deseado basado en la entrada del usuario y se llama al método mostrar_imagen.
+def main():
+    args = parse_args()
+    processor = None
+
+    if args.biblioteca == 'PIL':
+        processor = PILProcessor()
+    elif args.biblioteca == 'OpenCV':
+        processor = OpenCVProcessor()
+
+    try:   #Se utiliza un bloque try-except para manejar cualquier excepción que pueda surgir durante el procesamiento de la imagen
+        if processor:
+            processor.mostrar_imagen(args.imagen)
+        else:
+            print("Biblioteca no válida. Selecciona PIL o OpenCV.")
+    except Exception as e:
+        print(f"Error al procesar la imagen: {e}")
+
+if __name__ == "__main__":
+    main()
